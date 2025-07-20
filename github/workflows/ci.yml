@@ -30,5 +30,4 @@ name: CI básico
 
 ​      - name: Mensaje simulado 
 
-​        run: echo "¡CI ejecutado correctamente!" 
-
+​        run: echo "¡CI ejecutado correctamente!"
