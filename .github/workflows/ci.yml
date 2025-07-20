@@ -1,33 +1,44 @@
-name: CI básico 
+name: CI básico
 
-​ 
+# Ejecutar el workflow en cada push a cualquier rama
+on: [push]
 
-​on: [push] 
-
-​ 
-
-​jobs: 
-
-​  build: 
-
-​    runs-on: ubuntu-latest 
-
-​ 
-
-​    steps: 
-
-​      - name: Clonar el repositorio 
-
-​        uses: actions/checkout@v3 
-
-​ 
-
-​      - name: Verificar que el repositorio se clonó 
-
-​        run: ls -la 
-
-​ 
-
-​      - name: Mensaje simulado 
-
-​        run: echo "¡CI ejecutado correctamente!"
+jobs:
+  build:
+    # Usar la última versión de Ubuntu
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Paso 1: Clonar el repositorio
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+      
+      # Paso 2: Verificar contenido del repositorio
+      - name: Verificar que el repositorio se clonó
+        run: ls -la
+      
+      # Paso 3: Mostrar información del sistema
+      - name: Información del sistema
+        run: |
+          echo "🖥️  Sistema operativo: $(uname -s)"
+          echo "📅 Fecha actual: $(date)"
+          echo "👤 Usuario actual: $(whoami)"
+      
+      # Paso 4: Verificar archivos específicos
+      - name: Verificar archivos del proyecto
+        run: |
+          if [ -f "README.md" ]; then
+            echo "✅ README.md encontrado"
+          else
+            echo "❌ README.md no encontrado"
+          fi
+          
+          if [ -f "index.html" ]; then
+            echo "✅ index.html encontrado"
+          else
+            echo "ℹ️  index.html no encontrado (opcional)"
+          fi
+      
+      # Paso 5: Mensaje de éxito
+      - name: Mensaje simulado
+        run: echo "🎉 ¡CI ejecutado correctamente!"
